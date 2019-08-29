@@ -31,4 +31,12 @@ mutation {
 }
 ```
 
+## Connect with MongoDB
+
+### Start Mongodb
+
+``
+mkdir data
+mongod  --dbpath ./data
+``
 
