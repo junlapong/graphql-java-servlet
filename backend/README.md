@@ -19,3 +19,16 @@
   }
 }
 ```
+
+## Mutation
+
+```graphql
+mutation {
+  createLink(url: "http://www.google.com", description: "Google") {
+    url
+    description
+  }
+}
+```
+
+
