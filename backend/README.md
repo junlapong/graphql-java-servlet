@@ -35,8 +35,79 @@ mutation {
 
 ### Start Mongodb
 
-``
+```
 mkdir data
-mongod  --dbpath ./data
-``
 
+mongod  --dbpath ./data
+```
+
+## Authentication
+
+### Create User
+```graphql
+mutation {
+  createUser(
+    name: "Jun Lee"
+    authProvider: {
+      email: "junlapong@gmail.com"
+      password: "secret"}) {
+    id
+    name
+  }
+}
+```
+
+```json
+{
+  "data": {
+    "createUser": {
+      "id": "5d6789f81dd7d22261541c07",
+      "name": "Jun Lee"
+    }
+  }
+}
+```
+
+### Signin
+
+```graphql
+mutation {
+  signinUser(auth: {
+    email: "junlapong@gmail.com"
+    password: "secret"
+  }) {
+    token
+    user {
+      id
+      name
+    }
+  }
+}
+```
+
+### Create Link
+
+```graphql
+mutation link {
+  createLink(
+    url: "https://www.apple.com"
+    description: "Apple"
+  ) {
+    url
+  }
+}
+```
+
+```graphql
+query all {
+  allLinks {
+    id
+    url
+    description
+    postedBy {
+      id
+      name
+    }
+  }
+}
+```
