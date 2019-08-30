@@ -12,7 +12,7 @@ public class Scalars {
         @Override
         public String serialize(Object input) {
             //serialize the ZonedDateTime into string on the way out
-            return ((ZonedDateTime)input).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+            return ((ZonedDateTime) input).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         }
 
         @Override

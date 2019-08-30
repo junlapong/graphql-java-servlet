@@ -46,6 +46,7 @@ public class GraphQLEndpoint extends SimpleGraphQLServlet {
                         new SigninResolver(),
                         new LinkResolver(userRepository),
                         new VoteResolver(linkRepository, userRepository))
+                .scalars(Scalars.dateTime)
                 .build()
                 .makeExecutableSchema();
     }

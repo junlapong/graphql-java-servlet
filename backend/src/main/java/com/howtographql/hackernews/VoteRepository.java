@@ -24,6 +24,14 @@ public class VoteRepository {
         return list;
     }
 
+    public List<Vote> findByLinkId(String linkId) {
+        List<Vote> list = new ArrayList<>();
+        for (Document doc : votes.find(eq("linkId", linkId))) {
+            list.add(vote(doc));
+        }
+        return list;
+    }
+
     public Vote saveVote(Vote vote) {
         Document doc = new Document();
         doc.append("userId", vote.getUserId());
@@ -38,7 +46,8 @@ public class VoteRepository {
     }
 
     public Vote vote(Document doc) {
-        return new Vote(doc.get("_id").toString(),
+        return new Vote(
+                doc.get("_id").toString(),
                 ZonedDateTime.parse(doc.getString("createdAt")),
                 doc.getString("userId"),
                 doc.getString("linkId")

@@ -111,3 +111,38 @@ query all {
   }
 }
 ```
+
+### Create Vote
+
+```graphql
+mutation voting {
+  createVote(
+    linkId: "5d6791971dd7d22aa966b435"
+    userId: "5d6789f81dd7d22261541c07"
+  ) {
+    createdAt
+    link {
+      url
+    }
+    user {
+      name
+    }
+  }
+}
+```
+
+```json
+{
+  "data": {
+    "createVote": {
+      "createdAt": "2019-08-30T06:51:20.789Z",
+      "link": {
+        "url": "5d6791971dd7d22aa966b435"
+      },
+      "user": {
+        "name": "Jun Lee"
+      }
+    }
+  }
+}
+```
