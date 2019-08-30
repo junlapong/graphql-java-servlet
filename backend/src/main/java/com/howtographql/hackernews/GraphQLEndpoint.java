@@ -21,6 +21,7 @@ public class GraphQLEndpoint extends SimpleGraphQLServlet {
 
     private static final LinkRepository linkRepository;
     private static final UserRepository userRepository;
+    private static final VoteRepository voteRepository;
 
     static {
         //Change to `new MongoClient("<host>:<port>")`
@@ -28,6 +29,7 @@ public class GraphQLEndpoint extends SimpleGraphQLServlet {
         MongoDatabase mongo = new MongoClient().getDatabase("hackernews");
         linkRepository = new LinkRepository(mongo.getCollection("links"));
         userRepository = new UserRepository(mongo.getCollection("users"));
+        voteRepository = new VoteRepository(mongo.getCollection("votes"));
     }
     
     public GraphQLEndpoint() {
@@ -39,10 +41,11 @@ public class GraphQLEndpoint extends SimpleGraphQLServlet {
         return SchemaParser.newParser()
                 .file("schema.graphql")
                 .resolvers(
-                    new Query(linkRepository),
-                    new Mutation(linkRepository, userRepository), 
-                    new SigninResolver(),
-                    new LinkResolver(userRepository))
+                        new Query(linkRepository),
+                        new Mutation(linkRepository, userRepository, voteRepository),
+                        new SigninResolver(),
+                        new LinkResolver(userRepository),
+                        new VoteResolver(linkRepository, userRepository))
                 .build()
                 .makeExecutableSchema();
     }
